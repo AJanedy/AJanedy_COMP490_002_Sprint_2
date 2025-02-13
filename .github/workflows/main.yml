@@ -29,6 +29,9 @@ jobs:
     - name: Run program
       run: python src/main.py
 
+    - name: Run pylint
+      run: pylint src tests
+
     - name: Run tests
       run: |
         pytest tests  # Run pytest on the tests directory
