@@ -32,3 +32,5 @@ export PYTHONPATH=$(pwd)/src
 pytest tests/
 
 ===============================================================================
+
+Project passes all tests and requirements
