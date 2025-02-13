@@ -1,6 +1,7 @@
 import os
 from contextlib import redirect_stdout
-from file_management import *
+from pathlib import Path
+from file_management import build_path_object, normalize_file
 from database_management import *
 
 
@@ -23,6 +24,8 @@ def test_2_normalize_file():
     The test concludes by deleting the file created for testing, then
     tests to ensure that the file has been deleted.
     """
+    # Get directory of the script with os.path.dirname(__file__)
+    # Converts path to an absolute path with os.path.abspath()
     project_root = os.path.abspath(os.path.dirname(__file__))
 
     source_file = Path(os.path.join(project_root, "json_list_test_file.json"))
@@ -37,7 +40,7 @@ def test_2_normalize_file():
     # normally printed to the console is effectively discarded.
     with open(os.devnull, 'w') as trash_file, redirect_stdout(trash_file):
         # Ensure normalize_file returns the expected path object
-        assert normalize_file(source_file) == expected_new_file
+        assert normalize_file(source_file.__str__()) == expected_new_file
 
     # Ensure that a file has been created using that Path name
     assert expected_new_file.exists()
