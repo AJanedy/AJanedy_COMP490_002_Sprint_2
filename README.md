@@ -1,3 +1,6 @@
+Author: Andrew Janedy
+February 2025
+
 ===============================================================================
 
 To use this program, Python 3.6 or higher needs to be installed on your 
