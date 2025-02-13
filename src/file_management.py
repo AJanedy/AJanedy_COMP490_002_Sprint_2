@@ -29,10 +29,12 @@ def normalize_file(file: str):
     :return normalized_file_path_obj: A path object representing the new
         file containing normalized data.
     """
+    # os.path.abspath() gets the absolute path of its argument
+    # os.path.dirname() gets the directory of its argument
+    # __file__ is a built-in variable representing the path of the current script
     project_root = os.path.abspath(os.path.dirname(__file__))
 
     print(f"Normalizing file: {file}")
-    #input_file = Path(file)
     source_file = Path(os.path.join(project_root, file))
     normalized_file_path_obj = build_path_object(source_file)
     read_and_write_files(source_file, normalized_file_path_obj)
@@ -83,8 +85,7 @@ def build_path_object(source_file: Path):
     :return normalized_file: A path object representing a file containing
         the normalized data of the input file
     """
-    normalized_file = source_file.stem + "_normalized" + source_file.suffix
-    normalized_file = Path(normalized_file)  # Ensure output is a Path object
+    normalized_file = Path(source_file.stem + "_normalized" + source_file.suffix)
     return normalized_file
 
 
