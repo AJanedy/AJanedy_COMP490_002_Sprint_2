@@ -26,6 +26,9 @@ jobs:
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV  # Set the PYTHONPATH to src folder
 
+    - name: Run program
+      run: python src/main.py
+
     - name: Run tests
       run: |
         pytest tests  # Run pytest on the tests directory
