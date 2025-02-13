@@ -1,7 +1,8 @@
 import os
 from contextlib import redirect_stdout
-from file_management import *
-from database_management import *
+from src.file_management import *
+from src.database_management import *
+import pytest
 
 
 def test_build_path_object():
