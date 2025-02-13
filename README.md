@@ -3,7 +3,7 @@ February 2025
 
 ===============================================================================
 
-To use this program, Python 3.6 or higher needs to be installed on your 
+To use this program, Python 3.9 or higher needs to be installed on your 
 machine.  Pytest is also required if you wish to run the test module
 
 ===============================================================================
