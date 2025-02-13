@@ -8,6 +8,7 @@ and new file (Path) into the read_and_write_files() method where the
 source file is read and normalized, then written to the new, normalized
 file location.
 """
+import os
 import json
 from pathlib import Path
 from typing import TextIO
@@ -28,10 +29,13 @@ def normalize_file(file: str):
     :return normalized_file_path_obj: A path object representing the new
         file containing normalized data.
     """
+    project_root = os.path.abspath(os.path.dirname(__file__))
+
     print(f"Normalizing file: {file}")
-    input_file = Path(file)
-    normalized_file_path_obj = build_path_object(input_file)
-    read_and_write_files(input_file, normalized_file_path_obj)
+    #input_file = Path(file)
+    source_file = Path(os.path.join(project_root, file))
+    normalized_file_path_obj = build_path_object(source_file)
+    read_and_write_files(source_file, normalized_file_path_obj)
     print(f"{file} normalized.  Normalized data saved to {normalized_file_path_obj.name}")
 
     return normalized_file_path_obj

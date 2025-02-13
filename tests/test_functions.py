@@ -1,18 +1,17 @@
 import os
 from contextlib import redirect_stdout
-from src.file_management import *
-from src.database_management import *
-import pytest
+from file_management import *
+from database_management import *
 
 
-def test_build_path_object():
+def test_1_build_path_object():
     """Test that build_path_object() correctly renames a file"""
     source_file = Path("json_file.json")
     expected_new_file = Path("json_file_normalized.json")
     assert build_path_object(source_file) == expected_new_file
 
 
-def test_normalize_file():
+def test_2_normalize_file():
     """
     Test to ensure that normalize_file():
         * Returns the expected path object
@@ -24,7 +23,9 @@ def test_normalize_file():
     The test concludes by deleting the file created for testing, then
     tests to ensure that the file has been deleted.
     """
-    source_file = "json_list_test_file.json"
+    project_root = os.path.abspath(os.path.dirname(__file__))
+
+    source_file = Path(os.path.join(project_root, "json_list_test_file.json"))
     expected_new_file = Path("json_list_test_file_normalized.json")
     expected_new_file_line_count = 10
 
@@ -70,7 +71,7 @@ def test_normalize_file():
                 assert False, "Line is not valid json"
 
 
-def test_create_database():
+def test_3_create_database():
     """
     Tests to ensure that create_database:
         * Properly creates a database with a predetermined file name
@@ -110,7 +111,7 @@ def test_create_database():
     connection.close()
 
 
-def test_populate_database():
+def test_4_populate_database():
     """
         Tests to ensure that populate_database properly populates
         the database with the fixed test data.
@@ -161,7 +162,7 @@ def test_populate_database():
     connection.close()
 
 
-def test_file_and_database_deletion():
+def test_5_file_and_database_deletion():
     """
     A method to delete the files created during the testing process
     :return:

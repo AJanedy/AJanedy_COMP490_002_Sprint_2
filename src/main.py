@@ -35,8 +35,6 @@ Finally, the previously created database is populated with the data
 from each json file.  This process begins with the populate_database()
 method found in database_management.py.
 """
-from pathlib import Path
-
 from database_management import create_database, populate_database
 from file_management import normalize_file
 from key_comparison import compare_keys
