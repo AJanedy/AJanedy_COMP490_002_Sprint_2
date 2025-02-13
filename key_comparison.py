@@ -26,6 +26,7 @@ def compare_keys(files: list):
     :param files: A list of json files
     :return:
     """
+    print("\nComparing json keys:")
     json_keys = extract_keys(files)  # Dictionary: {"source_json_file": set[json_keys]}
     keys_list = list(json_keys.values())  # List[set[json_keys]] extracted from dictionary
     shared_keys = set.intersection(*keys_list)  # Set of keys shared between all json files

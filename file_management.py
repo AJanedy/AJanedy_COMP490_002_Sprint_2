@@ -28,9 +28,11 @@ def normalize_file(file: str):
     :return normalized_file_path_obj: A path object representing the new
         file containing normalized data.
     """
+    print(f"Normalizing file: {file}")
     input_file = Path(file)
     normalized_file_path_obj = build_path_object(input_file)
     read_and_write_files(input_file, normalized_file_path_obj)
+    print(f"{file} normalized.  Normalized data saved to {normalized_file_path_obj.name}")
 
     return normalized_file_path_obj
 

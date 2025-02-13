@@ -19,7 +19,7 @@ import sqlite3
 from sqlite3 import Cursor
 
 
-def create_database(path: str):
+def create_database(database_path: str):
     """
     Creates a database with the passed argument as the database name
 
@@ -28,16 +28,16 @@ def create_database(path: str):
     are used to create tables to be used elsewhere in this module to
     hold data from json objects representing job listings.
 
-    :param path:
+    :param database_path:
     :return:
     """
+    print(f"\nCreating database {database_path}")
 
     try:
-        connection = sqlite3.connect(path)
+        connection = sqlite3.connect(database_path)
         cursor = connection.cursor()
 
         create_shared_table(cursor)
-        # create_rapid_jobs2_unique_table(cursor)
         create_rapid_results_unique_table(cursor)
 
         connection.commit()
@@ -45,6 +45,8 @@ def create_database(path: str):
 
     except sqlite3.Error as error:
         print(f"Database error: {error}")
+
+    print(f"{database_path} created.")
 
 
 def create_shared_table(cursor: Cursor):
@@ -54,6 +56,7 @@ def create_shared_table(cursor: Cursor):
     :param cursor: A cursor object used to execute SQL queries
     :return:
     """
+
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS job_listings (
             id TEXT PRIMARY KEY,
@@ -103,7 +106,7 @@ def create_rapid_results_unique_table(cursor: Cursor):
     """)
 
 
-def populate_database(db_path: str, source_files: list):
+def populate_database(database_path: str, source_files: list):
     """
     A method to parse json objects from a file and populate a .db
     database
@@ -114,12 +117,14 @@ def populate_database(db_path: str, source_files: list):
     list, then passes those objects into the appropriate helper
     function to populate the tables in the database.
 
-    :param db_path: .db path to database file
+    :param database_path: .db path to database file
     :param source_files: list of files containing json objects
     :return:
     """
+    print(f"Populating {database_path}")
+
     try:
-        connection = sqlite3.connect(db_path)
+        connection = sqlite3.connect(database_path)
         cursor = connection.cursor()
 
         for file in source_files:
@@ -135,6 +140,8 @@ def populate_database(db_path: str, source_files: list):
 
     except sqlite3.Error as error:
         print(f"Database error: {error}")
+
+    print(f"{database_path} populated.")
 
 
 def populate_shared_table(cursor: Cursor, json_object: dict):
