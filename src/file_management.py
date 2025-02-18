@@ -36,6 +36,8 @@ def normalize_file(file: str):
     project_root = os.path.abspath(os.path.dirname(__file__))
 
     print(f"Normalizing file: {file}")
+
+    # TODO: can this be done in one step?
     source_file = Path(os.path.join(project_root, file))
     normalized_file_path_obj = build_path_object(source_file)
     read_and_write_files(source_file, normalized_file_path_obj)
@@ -68,6 +70,7 @@ def read_and_write_files(input_file: Path, normalized_file_path_obj: Path):
             for line in read_file:
                 line = line.strip()
                 # If each line is an list of JSON objects: [{json obj}, {json obj}, {json obj}]
+                # TODO: try "if isinstance(line, list)
                 if line.startswith("[") and line.endswith("]"):
                     process_json_array(input_file, line, write_file)
                 else:
