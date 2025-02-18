@@ -1,6 +1,7 @@
 """
 Test functions for AJanedy_COMP490_002_Sprint_2
 """
+
 import json
 import os
 import sqlite3
@@ -43,7 +44,9 @@ def test_2_normalize_file():
     # written to it, then redirect_stdout redirects standard
     # output.  As long as the with block is active, anything
     # normally printed to the console is effectively discarded.
-    with open(os.devnull, 'w', encoding='utf-8') as trash_file, redirect_stdout(trash_file):
+    with open(os.devnull, "w", encoding="utf-8") as trash_file, redirect_stdout(
+        trash_file
+    ):
         # Ensure normalize_file returns the expected path object
         assert normalize_file(source_file) == expected_new_file
 
@@ -51,7 +54,7 @@ def test_2_normalize_file():
     assert expected_new_file.exists()
 
     # Open new file and count lines
-    with open(expected_new_file, "r", encoding='utf-8') as file:
+    with open(expected_new_file, "r", encoding="utf-8") as file:
         lines = file.readlines()  # Read all lines into a list
         new_file_line_count_actual = len(lines)  # Determine length of list (line count)
 
@@ -94,7 +97,9 @@ def test_3_create_database():
     # written to it, then redirect_stdout redirects standard
     # output.  As long as the with block is active, anything
     # normally printed to the console is effectively discarded.
-    with open(os.devnull, 'w', encoding='utf-8') as trash_file, redirect_stdout(trash_file):
+    with open(os.devnull, "w", encoding="utf-8") as trash_file, redirect_stdout(
+        trash_file
+    ):
         create_database(test_database)
 
     # Convert name (str) to Path object and test its existence
@@ -121,8 +126,8 @@ def test_3_create_database():
 
 def test_4_populate_database():
     """
-        Tests to ensure that populate_database properly populates
-        the database with the fixed test data.
+    Tests to ensure that populate_database properly populates
+    the database with the fixed test data.
     """
     test_database = "test_database.db"
     json_files = [Path("json_list_test_file_normalized.json")]
@@ -133,7 +138,9 @@ def test_4_populate_database():
     # written to it, then redirect_stdout redirects standard
     # output.  As long as the with block is active, anything
     # normally printed to the console is effectively discarded.
-    with open(os.devnull, 'w', encoding='utf-8') as trash_file, redirect_stdout(trash_file):
+    with open(os.devnull, "w", encoding="utf-8") as trash_file, redirect_stdout(
+        trash_file
+    ):
         populate_database(test_database, json_files)
 
     # Establish connection to the test database
@@ -145,13 +152,18 @@ def test_4_populate_database():
     # Creates a list of all the titles from job_listings table
     job_titles = [row[0] for row in cursor.fetchall()]
 
-    expected_job_titles = ["Staff Software Engineer, Risk", "Software Developer",
-                           "Software Engineer", "Software Engineer",
-                           "Senior Software Development Engineer", "Software Developer",
-                           "Engineer II Software Engineering - US Based Remote",
-                           "Cloud Infrastructure Software Developer",
-                           "Software Developer - Item Assist product",
-                           "Sr. Software Developer"]
+    expected_job_titles = [
+        "Staff Software Engineer, Risk",
+        "Software Developer",
+        "Software Engineer",
+        "Software Engineer",
+        "Senior Software Development Engineer",
+        "Software Developer",
+        "Engineer II Software Engineering - US Based Remote",
+        "Cloud Infrastructure Software Developer",
+        "Software Developer - Item Assist product",
+        "Sr. Software Developer",
+    ]
 
     assert job_titles == expected_job_titles
 
@@ -160,9 +172,18 @@ def test_4_populate_database():
     # Creates a list of all the companies from job_listings table
     companies = [row[0] for row in cursor.fetchall()]
 
-    expected_companies = ["WEXWEXUS", "Bio-Rad Laboratories, Inc.", "Epic", "Actalent",
-                          "Adobe", "ALTA IT Services", "Anywhere Real Estate",
-                          "Apple", "Pearson", "Stanford University"]
+    expected_companies = [
+        "WEXWEXUS",
+        "Bio-Rad Laboratories, Inc.",
+        "Epic",
+        "Actalent",
+        "Adobe",
+        "ALTA IT Services",
+        "Anywhere Real Estate",
+        "Apple",
+        "Pearson",
+        "Stanford University",
+    ]
 
     assert expected_companies == companies
 

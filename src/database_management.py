@@ -14,6 +14,7 @@ created database.  This method will open each file in the list, create a
 json object from each line in the file, then call the appropriate helper
 functions used to populate each table.
 """
+
 import json
 import sqlite3
 from sqlite3 import Cursor
@@ -57,7 +58,8 @@ def create_shared_table(cursor: Cursor):
     :return:
     """
 
-    cursor.execute("""
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS job_listings (
             id TEXT PRIMARY KEY,
             title TEXT,
@@ -70,7 +72,8 @@ def create_shared_table(cursor: Cursor):
             compensation TEXT,
             job_url TEXT
         )   
-    """)
+    """
+    )
 
 
 def create_rapid_results_unique_table(cursor: Cursor):
@@ -80,7 +83,8 @@ def create_rapid_results_unique_table(cursor: Cursor):
     :param cursor: A cursor object used to execute SQL queries
     :return:
     """
-    cursor.execute("""
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS rapid_results_unique_data (
             id TEXT PRIMARY KEY,
             company_url_direct TEXT,
@@ -103,7 +107,8 @@ def create_rapid_results_unique_table(cursor: Cursor):
             company_industry TEXT,
             company_url TEXT
         )
-    """)
+    """
+    )
 
 
 def populate_database(database_path: str, source_files: list):
@@ -154,19 +159,27 @@ def populate_shared_table(cursor: Cursor, json_object: dict):
     :param json_object:
     :return:
     """
-    cursor.execute("""
+    cursor.execute(
+        """
         INSERT OR IGNORE INTO job_listings (
             id, title, company, location, date_posted, description, 
             employment_type, interval, compensation, job_url
         ) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (
-        json_object["id"], json_object["title"],
-        json_object["company"], json_object["location"],
-        json_object["date_posted"], json_object["description"],
-        json_object["employment_type"], json_object["interval"],
-        json_object["compensation"], json_object["job_url"]
-    ))
+    """,
+        (
+            json_object["id"],
+            json_object["title"],
+            json_object["company"],
+            json_object["location"],
+            json_object["date_posted"],
+            json_object["description"],
+            json_object["employment_type"],
+            json_object["interval"],
+            json_object["compensation"],
+            json_object["job_url"],
+        ),
+    )
 
 
 def populate_rapid_results_unique_table(cursor: Cursor, json_object: dict):
@@ -177,7 +190,8 @@ def populate_rapid_results_unique_table(cursor: Cursor, json_object: dict):
     :param json_object:
     :return:
     """
-    cursor.execute("""
+    cursor.execute(
+        """
         INSERT OR IGNORE INTO rapid_results_unique_data (
             id, company_url_direct, company_description,
             currency, job_function, company_num_employees, job_url_direct,
@@ -186,13 +200,23 @@ def populate_rapid_results_unique_table(cursor: Cursor, json_object: dict):
             company_industry, company_url
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (json_object["id"],
-          json_object["company_url_direct"], json_object["company_description"],
-          json_object["currency"], json_object["job_function"],
-          json_object["company_num_employees"], json_object["job_url_direct"],
-          json_object["company_revenue"], json_object["job_level"],
-          json_object["salary_source"], json_object["emails"],
-          json_object["site"], json_object["is_remote"],
-          json_object["listing_type"], json_object["company_industry"],
-          json_object["company_url"]
-          ))
+    """,
+        (
+            json_object["id"],
+            json_object["company_url_direct"],
+            json_object["company_description"],
+            json_object["currency"],
+            json_object["job_function"],
+            json_object["company_num_employees"],
+            json_object["job_url_direct"],
+            json_object["company_revenue"],
+            json_object["job_level"],
+            json_object["salary_source"],
+            json_object["emails"],
+            json_object["site"],
+            json_object["is_remote"],
+            json_object["listing_type"],
+            json_object["company_industry"],
+            json_object["company_url"],
+        ),
+    )

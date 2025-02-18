@@ -35,14 +35,12 @@ Finally, the previously created database is populated with the data
 from each json file.  This process begins with the populate_database()
 method found in database_management.py.
 """
+
 from database_management import create_database, populate_database
 from file_management import normalize_file
 from key_comparison import compare_keys
 
-FILES = [
-    "rapid_jobs2.json",
-    "rapid_results.json"
-]
+FILES = ["rapid_jobs2.json", "rapid_results.json"]
 
 normalized_files = []
 

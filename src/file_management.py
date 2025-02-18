@@ -8,6 +8,7 @@ and new file (Path) into the read_and_write_files() method where the
 source file is read and normalized, then written to the new, normalized
 file location.
 """
+
 import os
 import json
 from pathlib import Path
@@ -38,7 +39,9 @@ def normalize_file(file: str):
     source_file = Path(os.path.join(project_root, file))
     normalized_file_path_obj = build_path_object(source_file)
     read_and_write_files(source_file, normalized_file_path_obj)
-    print(f"{file} normalized.  Normalized data saved to {normalized_file_path_obj.name}")
+    print(
+        f"{file} normalized.  Normalized data saved to {normalized_file_path_obj.name}"
+    )
 
     return normalized_file_path_obj
 
@@ -108,7 +111,9 @@ def process_json_array(source_file: Path, line: str, output_file: TextIO):
     :return:
     """
     try:
-        json_objects = json.loads(line)  # Parse the JSON array from the line into a list.
+        json_objects = json.loads(
+            line
+        )  # Parse the JSON array from the line into a list.
 
         for json_object in json_objects:
             json_object = normalize_json_object(json_object)
@@ -164,7 +169,9 @@ def normalize_json_object(json_obj: dict):
     if "interval" not in json_obj:
         json_obj["interval"] = "yearly"
     if "min_amount" in json_obj:
-        json_obj["compensation"] = f"{json_obj['min_amount']} - {json_obj['max_amount']}"
+        json_obj["compensation"] = (
+            f"{json_obj['min_amount']} - {json_obj['max_amount']}"
+        )
         del json_obj["min_amount"]
         del json_obj["max_amount"]
     if "company_addresses" in json_obj:

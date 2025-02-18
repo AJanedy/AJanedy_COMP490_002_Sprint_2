@@ -8,6 +8,7 @@ build_json_key_set() to build a dictionary with the format of
 {"source_json_file": set[json_keys]}, then leverage set operations to find
 keys unique to each json file as well as shared keys.
 """
+
 import json
 from pathlib import Path
 
@@ -28,8 +29,12 @@ def compare_keys(files: list):
     """
     print("\nComparing json keys:")
     json_keys = extract_keys(files)  # Dictionary: {"source_json_file": set[json_keys]}
-    keys_list = list(json_keys.values())  # List[set[json_keys]] extracted from dictionary
-    shared_keys = set.intersection(*keys_list)  # Set of keys shared between all json files
+    keys_list = list(
+        json_keys.values()
+    )  # List[set[json_keys]] extracted from dictionary
+    shared_keys = set.intersection(
+        *keys_list
+    )  # Set of keys shared between all json files
 
     print(f"\nShared Keys: {shared_keys}")
     print("\nUnique Keys: ")
@@ -61,17 +66,17 @@ def extract_keys(files: list):
 
 def build_json_key_set(file: Path, object_keys: dict):
     """
-        Helper function to build the dictionary {"source_json_file": set[json_keys]}
+    Helper function to build the dictionary {"source_json_file": set[json_keys]}
 
-        build_json_key_set takes the path to a json file and a reference to a
-        dictionary that holds the previously described key-value pairs.  This
-        method will open each file and add each unique key to the set associated
-        with each file in the dictionary.
+    build_json_key_set takes the path to a json file and a reference to a
+    dictionary that holds the previously described key-value pairs.  This
+    method will open each file and add each unique key to the set associated
+    with each file in the dictionary.
 
-        :param file: Path to a json file
-        :param object_keys: A dictionary with format {"source_json_file": set[json_keys]}
-        :return:
-        """
+    :param file: Path to a json file
+    :param object_keys: A dictionary with format {"source_json_file": set[json_keys]}
+    :return:
+    """
     try:
         with open(str(file), "r", encoding="utf-8") as source_file:
             for line in source_file:
